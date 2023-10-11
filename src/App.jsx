@@ -1,10 +1,11 @@
-import "./App.css";
-import MyComponent from "./components/Mycomponents";
+import "./App.scss";
+import Mycomponents2 from "./components/Mycomponents";
 function App() {
   return (
     <>
-      <h2>cc</h2>
-      <MyComponent></MyComponent>
+      <div className="app">
+        <button className="btn btn-danger">cc</button>
+      </div>
     </>
   );
 }
