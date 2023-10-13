@@ -1,12 +1,25 @@
 import "./App.scss";
-import Mycomponents2 from "./components/Mycomponents";
+import Admin from "./components/Admin/Admin";
+import Header from "./components/Header";
+import { Route, Routes } from "react-router-dom";
+import User from "./components/User";
+import Home from "./components/Home";
+import { Outlet } from "react-router-dom";
 function App() {
   return (
-    <>
-      <div className="app">
-        <button className="btn btn-danger">cc</button>
+    <div>
+      <div className="container">
+        <div className="header-container">
+          <Header />
+        </div>
+        <div className="main-container">
+          <div className="sidenav-container"></div>
+          <div className="app-container">
+            <Outlet />
+          </div>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

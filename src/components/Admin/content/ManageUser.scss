@@ -1,0 +1,38 @@
+// .manage-user-container{
+//     .users-content{
+//     }
+// }
+.modal-add {
+  .image-preview {
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    height: 155px;
+    justify-content: center;
+    border-style: dashed;
+    border-radius: 1%;
+    .imageUpload {
+      display: flex;
+      gap: 10px;
+      .cancelImageUpload {
+        // max-width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 30px;
+      }
+    }
+    img {
+      max-width: 100px;
+      max-height: 100%;
+      object-fit: cover;
+    }
+  }
+  .label-upload {
+    // cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    max-width: 150px;
+  }
+}

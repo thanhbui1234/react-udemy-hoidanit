@@ -1,0 +1,21 @@
+.admin-container {
+  display: flex;
+  .admin-sidebar {
+    background-color: black;
+    color: white;
+    &:hover {
+      color: black;
+    }
+  }
+  .admin-content {
+    width: 100%;
+    .admin-header {
+      height: 30px;
+      border: 1px solid black;
+    }
+    .admin-main {
+      height: 30px;
+      border: 1px solid black;
+    }
+  }
+}
