@@ -4,7 +4,7 @@ import videoHomepage2 from "../assets/video.mp4";
 const Home = () => {
   return (
     <div className=" homepage-container">
-      <video className="video" height="500" autoPlay muted loop>
+      <video className="video" height="600" autoPlay muted loop>
         <source src={videoHomepage2} type="video/mp4" />
       </video>
       <div className="hompagecontent">

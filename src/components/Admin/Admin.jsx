@@ -2,6 +2,7 @@ import "./Admin.scss";
 import { useState } from "react";
 import SidebarNav from "./SideBarNav";
 import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 const Admin = (props) => {
   return (
     <div className="admin-container">
@@ -14,6 +15,20 @@ const Admin = (props) => {
           <Outlet />
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 };

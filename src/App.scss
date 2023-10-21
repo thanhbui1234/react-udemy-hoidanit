@@ -19,9 +19,11 @@
     border: 5px white !important;
     padding: 10px 10px;
     .homepage-container {
+      padding-top: 70px;
       display: flex;
       justify-content: center;
-      gap: 15px;
+      // gap: 0px;
+      align-items: center;
       .hompagecontent {
         display: flex;
         flex-direction: column;
@@ -29,19 +31,15 @@
         margin: 90px 0;
         width: 26%;
         .title-1 {
-          font-size: 50px;
+          font-size: 60px;
           letter-spacing: -0.02em;
           line-height: 100%;
         }
         .btn-content {
-          width: 60%;
+          width: 70%;
           height: 45%;
         }
       }
-    }
-    .video {
-      bottom: 0;
-      width: 70vh;
     }
 
     .header-container {
@@ -72,5 +70,9 @@
         color: #087ea4;
       }
     }
+  }
+  .video {
+    // bottom: 0;
+    width: 1400px;
   }
 }

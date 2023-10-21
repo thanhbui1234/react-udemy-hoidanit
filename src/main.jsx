@@ -10,6 +10,7 @@ import Admin from "./components/Admin/Admin.jsx";
 import Home from "./components/Home.jsx";
 import Dashboard from "./components/Admin/content/Dashboard.jsx";
 import ManageUser from "./components/Admin/content/ManageUser.jsx";
+import "react-toastify/dist/ReactToastify.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

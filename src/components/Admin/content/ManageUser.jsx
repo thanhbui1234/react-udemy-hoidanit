@@ -3,122 +3,56 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import ModalUser from "./ModalUser";
-
-// function Example() {
-//   const [show, setShow] = useState(false);
-
-//   const handleClose = () => setShow(false);
-//   const handleShow = () => setShow(true);
-
-//   return (
-//     <>
-//       <Button variant="primary" onClick={handleShow}>
-//         Launch demo modal
-//       </Button>
-//       <Modal show={show} onHide={handleClose} size="lg">
-//         <Modal.Header closeButton>
-//           <Modal.Title>Modal heading</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//           <form class="row g-3">
-//             <div class="col-md-6">
-//               <label for="inputEmail4" class="form-label">
-//                 Email
-//               </label>
-//               <input type="email" class="form-control" id="inputEmail4" />
-//             </div>
-//             <div class="col-md-6">
-//               <label for="inputPassword4" class="form-label">
-//                 Password
-//               </label>
-//               <input type="password" class="form-control" id="inputPassword4" />
-//             </div>
-//             <div class="col-12">
-//               <label for="inputAddress" class="form-label">
-//                 Address
-//               </label>
-//               <input
-//                 type="text"
-//                 class="form-control"
-//                 id="inputAddress"
-//                 placeholder="1234 Main St"
-//               />
-//             </div>
-//             <div class="col-12">
-//               <label for="inputAddress2" class="form-label">
-//                 Address 2
-//               </label>
-//               <input
-//                 type="text"
-//                 class="form-control"
-//                 id="inputAddress2"
-//                 placeholder="Apartment, studio, or floor"
-//               />
-//             </div>
-//             <div class="col-md-6">
-//               <label for="inputCity" class="form-label">
-//                 City
-//               </label>
-//               <input type="text" class="form-control" id="inputCity" />
-//             </div>
-//             <div class="col-md-4">
-//               <label for="inputState" class="form-label">
-//                 State
-//               </label>
-//               <select id="inputState" class="form-select">
-//                 <option selected>Choose...</option>
-//                 <option>...</option>
-//               </select>
-//             </div>
-//             <div class="col-md-2">
-//               <label for="inputZip" class="form-label">
-//                 Zip
-//               </label>
-//               <input type="text" class="form-control" id="inputZip" />
-//             </div>
-//             <div class="col-12">
-//               <div class="form-check">
-//                 <input
-//                   class="form-check-input"
-//                   type="checkbox"
-//                   id="gridCheck"
-//                 />
-//                 <label class="form-check-label" for="gridCheck">
-//                   Check me out
-//                 </label>
-//               </div>
-//             </div>
-//             <div class="col-12">
-//               <button type="submit" class="btn btn-primary">
-//                 Sign in
-//               </button>
-//             </div>
-//           </form>
-//         </Modal.Body>
-//         <Modal.Footer>
-//           <Button variant="secondary" onClick={handleClose}>
-//             Close
-//           </Button>
-//           <Button variant="primary" onClick={handleClose}>
-//             Save Changes
-//           </Button>
-//         </Modal.Footer>
-//       </Modal>
-//     </>
-//   );
-// }
+import { FaPlus } from "react-icons/fa";
+import TableUser from "./TabelUser";
+import { getAllUser } from "../../../service/Apiservice";
+import { useEffect } from "react";
+import ModalUpdateUser from "./ModalUserUpdate";
 
 const ManageUser = () => {
+  const [showModal, setShow] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [showModalUpdate, setShowUpdate] = useState(false);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    fetchListUsers();
+  }, []);
+
+  const handleClickUpdate = (user) => {
+    setShowUpdate(!showModalUpdate);
+    setUser(user);
+  };
+  const fetchListUsers = async () => {
+    let res = await getAllUser();
+    if (res.EC === 0) setUsers(res.DT);
+  };
   return (
     <div className="manage-user-container">
       <div className="title">Manage User</div>
       <div className="users-content">
         <div>
-          <button className="btn btn-danger">Add new users</button>
+          <button
+            onClick={() => setShow(!showModal)}
+            className="my-3 btn btn-danger"
+          >
+            <FaPlus /> Add new users
+          </button>
         </div>
 
-        <div>table user</div>
-        <ModalUser></ModalUser>
+        <div>
+          <TableUser handleClickUpdate={handleClickUpdate} users={users} />
+        </div>
+
+        <ModalUser
+          fetchListUsers={fetchListUsers}
+          show={showModal}
+          setShow={setShow}
+        />
+        <ModalUpdateUser
+          dataUpdate={user}
+          setShow={setShowUpdate}
+          show={showModalUpdate}
+        />
       </div>
     </div>
   );

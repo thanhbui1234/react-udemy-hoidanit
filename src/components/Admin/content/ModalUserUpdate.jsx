@@ -7,19 +7,31 @@ import { FaPlus } from "react-icons/fa";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { postCreateUser } from "../../../service/Apiservice";
-const ModalUser = (props) => {
-  const { fetchListUsers, show, setShow } = props;
+import _ from "lodash";
+import { updateUser } from "../../../service/Apiservice";
+const ModalUpdateUser = (props) => {
+  const { dataUpdate, fetchListUsers, show, setShow } = props;
   const handleClose = () => {
     setShow(false);
     setImage("");
   };
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setusername] = useState("");
   const [role, setRole] = useState("USER");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
 
+  useEffect(() => {
+    if (!_.isEmpty(dataUpdate)) {
+      const { email, image, username, role } = dataUpdate;
+      setEmail(email);
+      setusername(username);
+      setRole(role);
+      // setImage(image);
+      if (image) setImagePreview(`data:image/jpeg;base64,${image}`);
+    }
+  }, [props.dataUpdate]);
   const handleUpload = (e) => {
     if (e.target && e.target.files && e.target.files[0]) {
       setImagePreview(URL.createObjectURL(e.target.files[0]));
@@ -38,21 +50,12 @@ const ModalUser = (props) => {
   const handleCreateUser = async () => {
     const isValidEmail = validateEmail(email);
 
-    if (!isValidEmail) {
-      toast.error(`Invalid email`);
-      return;
-    }
-    if (!password) {
-      toast.error(`Invalid password`);
-      return;
-    }
-    if (!userName) {
+    if (!username) {
       toast.error(`Invalid username`);
       return;
     }
 
-    let data = await postCreateUser(email, password, userName, role, image);
-
+    let data = await updateUser(dataUpdate.id, username, role, image);
     if (data.EC) return toast.error(data.EM);
     if (data && data.EC === 0) {
       toast.success(data.EM);
@@ -62,6 +65,7 @@ const ModalUser = (props) => {
   };
   const handleCancleUpload = () => {
     setImage("");
+    setImagePreview("");
   };
   return (
     <>
@@ -70,7 +74,7 @@ const ModalUser = (props) => {
       </Button> */}
       <Modal className="modal-add" show={show} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>Add User</Modal.Title>
+          <Modal.Title>Update User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
@@ -83,6 +87,8 @@ const ModalUser = (props) => {
                 type="email"
                 className="form-control"
                 id="inputEmail4"
+                value={email}
+                disabled
               />
             </div>
             <div className="col-md-6">
@@ -90,22 +96,25 @@ const ModalUser = (props) => {
                 Password
               </label>
               <input
+                disabled
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 className="form-control"
                 id="inputPassword4"
+                value={password}
               />
             </div>
             <div className="col-8">
               <label htmlFor="inputAddress" className="form-label">
-                Username
+                username
               </label>
               <input
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => setusername(e.target.value)}
                 type="text"
                 className="form-control"
                 id="inputAddress"
                 placeholder="1234 Main St"
+                value={username}
               />
             </div>
             <div className="col-md-4">
@@ -117,10 +126,12 @@ const ModalUser = (props) => {
                 id="inputState"
                 className="form-select"
               >
-                <option defaultValue value="USER">
-                  User
+                <option defaultValue value={role}>
+                  {role === "ADMIN" ? "ADMIN" : "USER"}
                 </option>
-                <option value="ADMIN">Admin</option>
+                <option value={role != "ADMIN" ? "ADMIN" : "USER"}>
+                  {role != "ADMIN" ? "ADMIN" : "USER"}
+                </option>
               </select>
             </div>
             <div className="col-md-4">
@@ -139,7 +150,7 @@ const ModalUser = (props) => {
               />
             </div>
             <div className="col-md-12 image-preview">
-              {image ? (
+              {imagePreview ? (
                 <div className="imageUpload">
                   <span
                     onClick={() => handleCancleUpload()}
@@ -168,4 +179,4 @@ const ModalUser = (props) => {
   );
 };
 
-export default ModalUser;
+export default ModalUpdateUser;
