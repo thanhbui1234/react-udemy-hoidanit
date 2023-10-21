@@ -8,12 +8,15 @@ import TableUser from "./TabelUser";
 import { getAllUser } from "../../../service/Apiservice";
 import { useEffect } from "react";
 import ModalUpdateUser from "./ModalUserUpdate";
+import ProdAdminDetail from "./ProdAdminDetail";
 
 const ManageUser = () => {
   const [showModal, setShow] = useState(false);
   const [users, setUsers] = useState([]);
   const [showModalUpdate, setShowUpdate] = useState(false);
   const [user, setUser] = useState({});
+  const [showModalDetail, setShowDetail] = useState(false);
+  const [viewUser, setViewUser] = useState({});
   useEffect(() => {
     fetchListUsers();
   }, []);
@@ -21,6 +24,10 @@ const ManageUser = () => {
   const handleClickUpdate = (user) => {
     setShowUpdate(!showModalUpdate);
     setUser(user);
+  };
+  const onHandleView = (user) => {
+    setShowDetail(!showModalDetail);
+    setViewUser(user);
   };
   const fetchListUsers = async () => {
     let res = await getAllUser();
@@ -40,9 +47,17 @@ const ManageUser = () => {
         </div>
 
         <div>
-          <TableUser handleClickUpdate={handleClickUpdate} users={users} />
+          <TableUser
+            onHandleView={onHandleView}
+            handleClickUpdate={handleClickUpdate}
+            users={users}
+          />
         </div>
-
+        <ProdAdminDetail
+          viewUser={viewUser}
+          setShowDetail={setShowDetail}
+          showModalDetail={showModalDetail}
+        />
         <ModalUser
           fetchListUsers={fetchListUsers}
           show={showModal}
