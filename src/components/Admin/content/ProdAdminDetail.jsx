@@ -13,9 +13,6 @@ const ProdAdminDetail = (props) => {
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
       <Modal
         classNameName="modal-add"
         show={showModalDetail}

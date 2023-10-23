@@ -1,7 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import ModalUser from "./ModalUser";
 import { FaPlus } from "react-icons/fa";
 import TableUser from "./TabelUser";
@@ -9,6 +7,7 @@ import { getAllUser } from "../../../service/Apiservice";
 import { useEffect } from "react";
 import ModalUpdateUser from "./ModalUserUpdate";
 import ProdAdminDetail from "./ProdAdminDetail";
+import DeleteUser from "./DeleteUser";
 
 const ManageUser = () => {
   const [showModal, setShow] = useState(false);
@@ -17,9 +16,15 @@ const ManageUser = () => {
   const [user, setUser] = useState({});
   const [showModalDetail, setShowDetail] = useState(false);
   const [viewUser, setViewUser] = useState({});
+  const [deleteUser, setDelete] = useState(false);
+  const [emailDelete, setEmailDelete] = useState("");
   useEffect(() => {
     fetchListUsers();
   }, []);
+  const handleClickDelete = (user) => {
+    setEmailDelete(user);
+    setDelete(!deleteUser);
+  };
 
   const handleClickUpdate = (user) => {
     setShowUpdate(!showModalUpdate);
@@ -48,6 +53,7 @@ const ManageUser = () => {
 
         <div>
           <TableUser
+            handleClickDelete={handleClickDelete}
             onHandleView={onHandleView}
             handleClickUpdate={handleClickUpdate}
             users={users}
@@ -63,6 +69,7 @@ const ManageUser = () => {
           show={showModal}
           setShow={setShow}
         />
+        <DeleteUser email={emailDelete} show={deleteUser} setShow={setDelete} />
         <ModalUpdateUser
           dataUpdate={user}
           setShow={setShowUpdate}

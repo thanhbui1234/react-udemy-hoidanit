@@ -9,7 +9,7 @@ const Home = () => {
       </video>
       <div className="hompagecontent">
         <div className="title-1">Forms that break the norm</div>
-        <div>
+        <div className="child-title">
           Get more data—like signups, feedback, and anything else—with forms
           designed to be
           <span className="fw-bold "> refreshingly different.</span>

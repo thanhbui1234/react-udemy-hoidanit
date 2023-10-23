@@ -4,8 +4,7 @@ import { getAllUser } from "../../../service/Apiservice";
 const TableUser = (props) => {
   // const [users, setUsers] = useState([]);
 
-  const { dataUpdate, users, handleClickUpdate, onHandleView } = props;
-  const onHandleDelete = (id) => {};
+  const { handleClickDelete, users, handleClickUpdate, onHandleView } = props;
   return (
     <table className="table table-hover table-bordered shadow">
       <thead>
@@ -34,7 +33,7 @@ const TableUser = (props) => {
                     VIEW
                   </button>
                   <button
-                    onClick={() => onHandleDelete(user.id)}
+                    onClick={() => handleClickDelete(user)}
                     className="btn btn-danger"
                   >
                     DELETE
